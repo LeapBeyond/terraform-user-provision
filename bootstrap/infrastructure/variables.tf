@@ -1,8 +1,8 @@
 variable "tags" {
   default = {
-    "owner"   = "rahook"
-    "project" = "provision-test"
-    "client"  = "Internal"
+    "Owner"   = "rahook"
+    "Project" = "provision-test"
+    "Client"  = "Internal"
   }
 }
 
