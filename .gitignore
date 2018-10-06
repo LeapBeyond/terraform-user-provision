@@ -2,8 +2,13 @@
 **/.terraform/*
 
 # .tfstate files
-*.tfstate
-*.tfstate.*
+**/*.tfstate
+**/*.tfstate.*
 
 # .tfvars files
-*.tfvars
+**/*.tfvars
+
+.DS_Store
+**/env.rc
+**/*.pem
+**/*key
