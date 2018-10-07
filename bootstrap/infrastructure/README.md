@@ -18,3 +18,13 @@ subnet_id = subnet-007dabb84342bd201
 vpc_cidr = 172.32.0.0/16
 vpc_id = vpc-06ffd2d2c157e9544
 ```
+
+## Note
+
+Please note that the KMS key policy for encryption on the provisioning bucket has a hardwired assumption about the ARN for the role that the deployed instances will use - specifically, the instance role is created in the `instance` project, so the KMS policy definition here has an assumption about the name of the role created by that external project.
+
+## Teardown
+
+To teardown the infrastructure, execute `terraform destroy`.
+
+It is possible this will fail because the provisioning bucket is not empty. If that is the case, manually delete the bucket from the AWS console and re-run `terraform destroy`

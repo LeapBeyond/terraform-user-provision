@@ -21,3 +21,7 @@ aws --profile ??? secretsmanager \
 First copy `env.rc.template` to `env.rc` and update the missing values, which would have been obtained by executing the `bootstrap/infrastructure` project.
 
 Then execute `create.sh` - this will report progress as it creates the KMS encryption key (if necessary) and the user SSH key pairs.
+
+## Teardown
+
+To destroy assets, execute `destroy.sh`

@@ -26,4 +26,14 @@ Additionally, there is minimal treatment of the security of the EC2 host or stor
 
 ## Usage
 
-_to be completed_
+  1. apply `bootstrap/backend` according to the instructions there.
+  1. apply `bootstrap/infrastucture` according to the instructions there, and using the values from the previous step.
+  1. apply `keys` according to the instructions there, and using the values from the previous step.
+  1. apply `instance` according to the instructions there, and using the values from the previous step.
+
+To tear down what has been created, go in the reverse order, noting the instructions in each of the sub projects on how to teardown what they created:
+
+  1. `instance`
+  1. `keys`
+  1. `bootstrap/infrastucture`
+  1. `bootstrap/backend`

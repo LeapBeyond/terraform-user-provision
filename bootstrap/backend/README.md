@@ -33,3 +33,9 @@ project_tags = {
 table_arn = arn:aws:dynamodb:eu-west-2:889199313043:table/terraform-state-lock
 table_name = terraform-state-lock
 ```
+
+## Teardown
+
+Execute `destroy.sh` to tear down assets.
+
+It is possible this will fail because the state bucket is not empty. If that is the case, manually delete the bucket from the AWS console and re-run `destroy.sh`

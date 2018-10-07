@@ -72,8 +72,10 @@ https://aws.amazon.com/amazon-linux-2/
 [gwen@ip-172-32-10-53 ~]$
 ```
 
+## Teardown
 
-note key policy in bootstrap/infrastucture has hardwired ARN for role
+To destroy the instances and other assets:
 
-
-aws --profile adm_rhook_cli secretsmanager   get-secret-value   --secret-id ssh/betty   --query SecretString   --output text > betty.pem ; chmod 400 betty.pem
+```
+terraform destroy
+```
