@@ -12,6 +12,8 @@ Some other solutions which are feasible according to your needs include:
 
 The specific intention of the illustrated solution here is to disconnect definition and storage of the user public keys and other startup assets from the definition of the instance itself.
 
+Be aware when reading this that this is not illustrating a general-purpose user management solution - the set of users is fixed at the time of instance deployment, and there's no mechanism for adding and removing users subsequent to that point. In part this is driven by a philosophy of the hosts being ephemeral and discarded and rebuilt rather than being updated.
+
 There are three sub-projects here, separating out the different "layers" in a simulation of a more complete solution:
 
  - `bootstrap` is used to setup a VPC and subnet to place the instance in, and an S3 bucket used to hold provisioning materials. In a "real" solution this is likely to seldom change, and for the deployed assets to have very long life spans;
