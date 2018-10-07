@@ -119,10 +119,40 @@ resource "aws_network_acl_rule" "ec2_ssh_in" {
 # set up the provisioning bucket and key for SSE
 # ------------------------------------------------------------------------------
 
+data "aws_caller_identity" "current" {}
+
 resource "aws_kms_key" "provisioning" {
   deletion_window_in_days = 7
-
   tags = "${merge(map("Name", "provisioning"), var.tags)}"
+  policy = <<EOF
+{
+  "Version" : "2012-10-17",
+  "Id" : "provisioning",
+  "Statement" : [
+    {
+      "Sid" : "Enable IAM user Permissions",
+      "Effect" : "Allow",
+      "Principal" : {
+        "AWS" : "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"
+      },
+      "Action" : "kms:*",
+      "Resource" : "*"
+    },
+    {
+      "Sid" : "Allow EC2 role to use key for reading",
+      "Effect": "Allow",
+      "Principal" : {
+        "AWS" : "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/test"
+      },
+      "Action" : [
+        "kms:Decrypt",
+        "kms:DescribeKey"
+      ],
+      "Resource" : "*"
+    }
+  ]
+}
+EOF
 }
 
 resource "aws_kms_alias" "a" {

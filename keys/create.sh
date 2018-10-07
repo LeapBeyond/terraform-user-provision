@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 cd `dirname $0`
 
 [[ -s ./env.rc ]] && source ./env.rc
