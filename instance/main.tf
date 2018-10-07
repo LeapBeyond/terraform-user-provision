@@ -102,6 +102,7 @@ resource "aws_iam_instance_profile" "test" {
 # ------------------------------------------------------------------
 resource "aws_instance" "test" {
   depends_on = ["aws_s3_bucket_object.bootstrap"]
+  count      = "${var.instances}"
 
   ami                         = "${data.aws_ami.target_ami.id}"
   instance_type               = "${var.instance_type}"
@@ -120,7 +121,7 @@ resource "aws_instance" "test" {
     volume_size = "${var.root_vol_size}"
   }
 
-  tags        = "${merge(map("Name", "provision-test"), var.tags)}"
+  tags        = "${merge(map("Name", "provision-test-${count.index}"), var.tags)}"
   volume_tags = "${var.tags}"
 
   user_data = <<EOF

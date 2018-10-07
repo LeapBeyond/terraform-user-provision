@@ -42,3 +42,8 @@ variable "bucket" {
 variable "subnet_cidr" {
   description = "cidr block for subnet set up by bootstrap/infrastructure"
 }
+
+variable "instances" {
+  description = "the number of instances to launch"
+  default     = 5
+}
