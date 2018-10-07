@@ -17,6 +17,16 @@ data "aws_subnet" "selected" {
 }
 
 # ------------------------------------------------------------------
+# ensure the bootstrap script is present
+# ------------------------------------------------------------------
+resource "aws_s3_bucket_object" "bootstrap" {
+  bucket = "${var.bucket}"
+  key    = "provisioning/bootstrap.sh"
+  source = "${path.module}/provisioning/bootstrap.sh"
+  etag   = "${md5(file("${path.module}/provisioning/bootstrap.sh"))}"
+}
+
+# ------------------------------------------------------------------
 # security groups to attach to the instance
 # ------------------------------------------------------------------
 resource "aws_security_group" "test_ssh_access" {
@@ -91,6 +101,8 @@ resource "aws_iam_instance_profile" "test" {
 # test instance
 # ------------------------------------------------------------------
 resource "aws_instance" "test" {
+  depends_on = ["aws_s3_bucket_object.bootstrap"]
+
   ami                         = "${data.aws_ami.target_ami.id}"
   instance_type               = "${var.instance_type}"
   key_name                    = "${var.test_key}"
@@ -113,6 +125,8 @@ resource "aws_instance" "test" {
 
   user_data = <<EOF
 #!/bin/bash
-yum update -y -q
+aws s3 cp s3://${var.bucket}/provisioning/bootstrap.sh bootstrap.sh
+chmod 750 bootstrap.sh
+./bootstrap.sh ${var.bucket}
 EOF
 }

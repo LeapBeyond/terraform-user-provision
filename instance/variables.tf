@@ -28,7 +28,7 @@ variable "ssh_inbound" {
 
 variable "test_key" {
   description = "ec2 keypair set up by bootstrap/backend"
-  default = "testinstance"
+  default     = "testinstance"
 }
 
 variable "aws_account_id" {}

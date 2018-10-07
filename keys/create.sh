@@ -35,11 +35,13 @@ do
       echo "======= making key for $USER ======="
       ssh-keygen -b 4048 -t rsa -C $USER -f $USER -N  "" -q
       mv $USER $USER.pem
-      chmod 400 $USER*
+      chmod 400 $USER.pem
+      ssh-keygen -y -f $USER.pem > $USER.pub
+      chmod 400 $USER.pub
 
       echo "==> storing $USER private key "
       # store private key in secrets manager
-      aws secretsmanager create-secret\
+      aws secretsmanager create-secret \
         --name ssh/$USER \
         --secret-string file://$USER.pem \
         --kms-key-id $KEY_ARN \

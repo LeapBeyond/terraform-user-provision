@@ -9,7 +9,7 @@ Obviously if the private keys are being stored in SecretsManager as shown here, 
 Retrieving the private key for use in testing later can be done using something like:
 
 ```
-aws --profile adm_rhook_cli secretsmanager \
+aws --profile ??? secretsmanager \
   get-secret-value \
   --secret-id ssh/betty \
   --query SecretString \
